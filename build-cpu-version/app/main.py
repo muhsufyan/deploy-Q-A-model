@@ -4,11 +4,11 @@ from fastapi.params import Body
 from pydantic import BaseModel
 
 # load model
-from transformers import pipeline
-
+from transformers import pipeline, AutoTokenizer
+from model import CustomBertForQuestionAnswering
 # Example of inference
-model = "practice-ac/training_question_answer"
-tokenizer = "practice-ac/tokenizer-model-for-deploy-Q-A-model"
+model = CustomBertForQuestionAnswering.from_pretrained("practice-ac/training_question_answer")
+tokenizer = AutoTokenizer.from_pretrained("practice-ac/tokenizer-model-for-deploy-Q-A-model")
 nlp = pipeline("question-answering", model=model, tokenizer=tokenizer)
 
 
@@ -24,7 +24,7 @@ async def prediction(capData: Data):
     QA_input = {
     'question': capData.Question,
     'context': capData.Context
-}
+    }
     predict = nlp(QA_input)
     return {
         "answer": predict['answer'],

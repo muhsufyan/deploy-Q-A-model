@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: list-generator-ex
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - environment: staging
+        server: https://kubernetes.default.svc
+        path: deploy
+  template:
+    metadata:
+      name: '{{environment}}-application'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/muhsufyan/deploy-Q-A-model.git
+        targetRevision: main
+        path: {{path}}
+      destination:
+        server: '{{server}}'
+        namespace: '{{environment}}'
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
