@@ -15,7 +15,7 @@ nlp = pipeline("question-answering", model=model, tokenizer=tokenizer)
 app = FastAPI(title="Dokumentasi untuk api")
 
 class Data(BaseModel):
-    Question: str,
+    Question: str
     Context: str
 
 
