@@ -26,3 +26,8 @@ jobs:
         - name: push the docker image
           id: push-docker-image
           run: docker push tetewpoj/fastapi-model-qna
+            # Run docker image
+        - name: Run the build process with Docker
+          uses: addnab/docker-run-action@v3
+          with:
+            image: tetewpoj/fastapi-model-qna
