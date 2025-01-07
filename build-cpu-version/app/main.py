@@ -5,9 +5,9 @@ from pydantic import BaseModel
 
 # load model
 from transformers import pipeline, AutoTokenizer
-from model import CustomBertForQuestionAnswering
+from app import model
 # Example of inference
-model = CustomBertForQuestionAnswering.from_pretrained("practice-ac/training_question_answer")
+model = model.CustomBertForQuestionAnswering.from_pretrained("practice-ac/training_question_answer")
 tokenizer = AutoTokenizer.from_pretrained("practice-ac/tokenizer-model-for-deploy-Q-A-model")
 nlp = pipeline("question-answering", model=model, tokenizer=tokenizer)
 
